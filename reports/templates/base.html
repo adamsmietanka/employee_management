@@ -1,0 +1,94 @@
+{% load i18n %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <!--Datatables dependencies-->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/dt-1.10.18/b-1.5.6/b-html5-1.5.6/datatables.min.css"/>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/dt-1.10.18/b-1.5.6/b-html5-1.5.6/datatables.min.js"></script>
+
+        <!--Datepicker dependencies-->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+        <!--Fontawesome-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+        <!-- Busy Load JS & CSS -->
+        <script src="https://cdn.jsdelivr.net/npm/busy-load/dist/app.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/busy-load/dist/app.min.css" rel="stylesheet">
+
+        {% block extra_head %}{% endblock %}
+    </head>
+    <body>
+        <div class="container">
+            <div class="row"></div>
+            <label class="col-sm-12 col-md-12"></label>
+            <!--<div class="row">-->
+                <!--<div class="col_sm">-->
+                    <!--Stanowisko:-->
+                <!--</div>-->
+                <!--<div class="col_lm" id="filter_job">-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<label class="col-sm-12 col-md-12"></label>-->
+            <!--<div class="row">-->
+                <!--<div class="col_sm">-->
+                    <!--Budowa:-->
+                <!--</div>-->
+                <!--<div class="col_lm" id="filter_site">-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <form>
+                <div class="form-group">
+                    <label>Stanowisko</label>
+                    <div class = "form-control" id="filter_job" ></div>
+                    <!--<input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">-->
+                </div>
+                <div class="form-group">
+                    <label>Budowa</label>
+                    <div class = "form-control" id="filter_site" ></div>
+                    <!--<input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">-->
+                </div>
+            </form>
+
+            <!--<div class="row">-->
+            <!--<div class="col-1">Stanowisko:</div>-->
+            <!--<div class="col" id="filter_job"></div>-->
+            <!--<div class="w-200"></div>-->
+            <!--<div class="col-1">Budowa:</div>-->
+            <!--<div class="col" id="filter_site"></div>-->
+          <!--</div>-->
+
+            <label class="col-sm-12 col-md-12"></label>
+        </div>
+        <div class="container">
+            <div class="row">
+                <label class="col-sm-12 col-md-12">
+                <form class="form-horizontal">
+                    <fieldset>
+                        <!--<div class="control-group">-->
+                            <!--<div class="controls">-->
+                                <!--<div class="input-prepend input-group">-->
+                                    <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                        <i class="fa fa-calendar"></i>&nbsp;
+                                        <span></span>
+                                        <i class="fa fa-caret-down"></i>
+                                    </div>
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </fieldset>
+                </form>
+                </label>
+            </div>
+            <div class="row">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load i18n staticfiles %}
+
+{% block extra_head %}
+    <title>Raport</title>
+
+    <script src="{% static "reports/records_table.js" %}"></script>
+    <script src="{% static "reports/datatables-yadcf.js" %}"></script>
+    <script type="text/javascript">
+    var records_json = '{% url "testmodel_list_json" %}';
+
+    // Translations for datatables
+    var dt_language = {
+        "emptyTable":     "{% trans "No data available in table" %}",
+        "info":           "{% trans "Znaleziono _TOTAL_ rekordów" %}",
+        "infoEmpty":      "{% trans "Znaleziono 0 rekordów" %}",
+        "infoFiltered":   "{% trans "z _MAX_" %}",
+        "infoPostFix":    "",
+        "thousands":      ",",
+        "lengthMenu":     "{% trans "Rekordów na stronę _MENU_" %}",
+        "loadingRecords": "{% trans "Ładowanie..." %}",
+        "processing":     "{% trans "Przetwarzanie..." %}",
+        "search":         "{% trans "Szukaj:" %}",
+        "zeroRecords":    "{% trans "Brak rekordów" %}",
+        "paginate": {
+            "first":      "{% trans "Pierwsza" %}",
+            "last":       "{% trans "Ostatnia" %}",
+            "next":       "{% trans "Następna" %}",
+            "previous":   "{% trans "Poprzednia" %}"
+        },
+        "aria": {
+            "sortAscending":  "{% trans ": activate to sort column ascending" %}",
+            "sortDescending": "{% trans ": activate to sort column descending" %}"
+        }
+    }
+
+    var datepicker_language = {
+        cancelLabel: 'Anuluj',
+        format: 'YYYY/MM/DD',
+        customRangeLabel: 'Własne',
+        separator: " - ",
+        applyLabel: "OK",
+        firstDay: 1,
+        daysOfWeek: [
+            "Nd",
+            "Pn",
+            "Wt",
+            "Śr",
+            "Cz",
+            "Pt",
+            "So"
+        ],
+        monthNames: [
+            "Styczeń",
+            "Luty",
+            "Marzec",
+            "Kwiecień",
+            "Maj",
+            "Czerwiec",
+            "Lipiec",
+            "Sierpień",
+            "Wrzesień",
+            "Październik",
+            "Listopad",
+            "Grudzień"
+        ]
+    }
+    </script>
+{% endblock %}
+
+{% block content %}
+<div class="table-responsive">
+    <table class="datatable table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th>{% trans "Pracownik" %}</th>
+                <th>{% trans "Stanowisko" %}</th>
+                <th>{% trans "Budowa" %}</th>
+                <th>{% trans "Data" %}</th>
+                <th>{% trans "Dniówka" %}</th>
+            </tr>
+
+            <!--<tr class = "filters">-->
+                <!--<th class="input-filter"></th>-->
+                <!--<th class="input-filter"></th>-->
+                <!--<th class="input-filter"></th>-->
+                <!--<th class="date-filter">Data</th>-->
+                <!--<th class="input-filter"></th>-->
+            <!--</tr>-->
+
+        </thead>
+        <tbody>
+        </tbody>
+
+        <tfoot>
+          <tr>
+            <th rowspan="1" colspan="1"></th>
+            <th rowspan="1" colspan="1"></th>
+            <th rowspan="1" colspan="1"></th>
+            <th rowspan="1" colspan="1"></th>
+            <th rowspan="1" colspan="1"></th>
+          </tr>
+        </tfoot>
+    </table>
+</div>
+{% endblock %}
