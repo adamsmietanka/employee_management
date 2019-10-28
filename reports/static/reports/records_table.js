@@ -8,7 +8,7 @@ $(document).ready(function() {
         "scrollY": "600px",
         scrollCollapse: true,
         paging: false,
-        "dom": "<'row'<'col-md-6'B><'col-md-6'f>> <'row'<'col-md-12't>> <'row'<'col-md-12'i>>",
+        "dom": "<'row'<'col-md-6'B>> <'row'<'col-md-12't>> <'row'<'col-md-12'i>>",
         buttons: [
             { extend: 'pdfHtml5',
                 footer: true,
@@ -102,22 +102,29 @@ $(document).ready(function() {
     });
 
     dt_table.yadcf([
-//            {
-//                column_number: 0,
-//                filter_type: "multi_select",
-//                select_type: 'chosen'
-//            },
             {
-                 column_number: 1,
-                 filter_type: "text",
-                 filter_delay: 500,
-                 filter_container_id: "filter_job"
+                column_number: 0,
+                filter_type: "select",
+                filter_container_id: "filter_employee",
+                style_class: "form-control",
+                filter_reset_button_text: false,
+                filter_default_label: "Wybierz pracownika"
+            },
+            {
+                column_number: 1,
+                filter_type: "select",
+                filter_container_id: "filter_job",
+                style_class: "form-control",
+                filter_reset_button_text: false,
+                filter_default_label: "Wybierz stanowisko"
             },
             {
                 column_number: 2,
-                filter_type: "text",
-                 filter_delay: 500,
-                 filter_container_id: "filter_site"
+                filter_type: "select",
+                filter_container_id: "filter_site",
+                style_class: "form-control",
+                filter_reset_button_text: false,
+                filter_default_label: "Wybierz budowę"
             }
         ]);
 

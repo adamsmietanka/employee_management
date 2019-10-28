@@ -21,74 +21,39 @@
         <link href="https://cdn.jsdelivr.net/npm/busy-load/dist/app.min.css" rel="stylesheet">
 
         {% block extra_head %}{% endblock %}
+
     </head>
     <body>
         <div class="container">
             <div class="row"></div>
             <label class="col-sm-12 col-md-12"></label>
-            <!--<div class="row">-->
-                <!--<div class="col_sm">-->
-                    <!--Stanowisko:-->
-                <!--</div>-->
-                <!--<div class="col_lm" id="filter_job">-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<label class="col-sm-12 col-md-12"></label>-->
-            <!--<div class="row">-->
-                <!--<div class="col_sm">-->
-                    <!--Budowa:-->
-                <!--</div>-->
-                <!--<div class="col_lm" id="filter_site">-->
-                <!--</div>-->
-            <!--</div>-->
 
-            <form>
-                <div class="form-group">
-                    <label>Stanowisko</label>
-                    <div class = "form-control" id="filter_job" ></div>
-                    <!--<input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">-->
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label">Pracownik</label>
+                <div class="col-sm-5" id="filter_employee"></div>
+
+                <label class="col-sm-1 col-form-label">Stanowisko</label>
+                <div class="col-sm-5" id="filter_job"></div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label">Budowa</label>
+                <div class="col-sm-5" id="filter_site"></div>
+
+                <label class="col-sm-1 col-form-label">Data</label>
+                <div class="col-sm-5">
+                    <div class="form-control" id="reportrange">
+                        <i class="fa fa-calendar"></i>&nbsp;
+                        <span></span>
+                        <i class="fa fa-caret-down"></i>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Budowa</label>
-                    <div class = "form-control" id="filter_site" ></div>
-                    <!--<input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">-->
-                </div>
-            </form>
-
-            <!--<div class="row">-->
-            <!--<div class="col-1">Stanowisko:</div>-->
-            <!--<div class="col" id="filter_job"></div>-->
-            <!--<div class="w-200"></div>-->
-            <!--<div class="col-1">Budowa:</div>-->
-            <!--<div class="col" id="filter_site"></div>-->
-          <!--</div>-->
-
-            <label class="col-sm-12 col-md-12"></label>
+            </div>
         </div>
         <div class="container">
-            <div class="row">
-                <label class="col-sm-12 col-md-12">
-                <form class="form-horizontal">
-                    <fieldset>
-                        <!--<div class="control-group">-->
-                            <!--<div class="controls">-->
-                                <!--<div class="input-prepend input-group">-->
-                                    <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-                                        <i class="fa fa-calendar"></i>&nbsp;
-                                        <span></span>
-                                        <i class="fa fa-caret-down"></i>
-                                    </div>
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    </fieldset>
-                </form>
-                </label>
-            </div>
             <div class="row">
                 {% block content %}{% endblock %}
             </div>
         </div>
-
     </body>
 </html>
