@@ -5,7 +5,7 @@ var enddate;
 
 $(document).ready(function() {
     var dt_table = $('.datatable').dataTable({
-        "scrollY": "600px",
+        "scrollY": "60vh",
         scrollCollapse: true,
         paging: false,
         "dom": "<'row'<'col-md-6'B>> <'row'<'col-md-12't>> <'row'<'col-md-12'i>>",
@@ -14,12 +14,24 @@ $(document).ready(function() {
                 footer: true,
                 customize : function(doc) {
                     },
-                text: 'Generuj raport',
+                text: '<i class="fas fa-save"></i> Raport PDF',
                 filename: function () {
                     startdate = $('#reportrange').data('daterangepicker').startDate;
                     range = $('#reportrange').data('daterangepicker').chosenLabel;
                     return 'Raport ' + startdate.format('YYYY-MM-DD') + ' - '+ $('.dataTables_filter input')[0].value;
                     }
+            },
+            { extend: 'excel',
+                footer: true,
+                header: true,
+                customize : function(doc) {
+                    },
+                text: 'Raport Excel',
+//                filename: function () {
+//                    startdate = $('#reportrange').data('daterangepicker').startDate;
+//                    range = $('#reportrange').data('daterangepicker').chosenLabel;
+//                    return 'Raport ' + startdate.format('YYYY-MM-DD') + ' - '+ $('.dataTables_filter input')[0].value;
+//                    }
             }
         ],
         language: dt_language,  // global variable defined in html
