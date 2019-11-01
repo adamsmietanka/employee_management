@@ -34,33 +34,16 @@ class TestModelListJson(BaseDatatableView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(BaseDatatableView, self).get_context_data(**kwargs)
-        qs = Record.objects.all()
-        search_employee = self._querydict.get('columns[0][search][value]', None)
-        search_position = self._querydict.get('columns[1][search][value]', None)
-        search_site = self._querydict.get('columns[2][search][value]', None)
-        q = Q()
-        q &= Q(**{'employee__icontains': search_employee})
-        q &= Q(**{'position__icontains': search_position})
-        q &= Q(**{'site__icontains': search_site})
-        qs_filtered = qs.filter(q)
-        # qs = self.filter_queryset(Record.objects.all())
-        context['yadcf_data_0'] = self.get_unique_values(qs, 'employee') if search_employee else self.get_unique_values(
-            qs_filtered, 'employee')
-        # if search_employee:
-        #     context['yadcf_data_0'] = list(qs.order_by().values_list('employee', flat=True).distinct())
-        # else:
-        #     context['yadcf_data_0'] = list(qs_filtered.order_by().values_list('employee', flat=True).distinct())
-
-        if search_position:
-            context['yadcf_data_1'] = list(qs.order_by().values_list('position', flat=True).distinct())
-        else:
-            context['yadcf_data_1'] = list(qs_filtered.order_by().values_list('position', flat=True).distinct())
-
-        if search_site:
-            context['yadcf_data_2'] = list(qs.order_by().values_list('site', flat=True).distinct())
-        else:
-            context['yadcf_data_2'] = list(qs_filtered.order_by().values_list('site', flat=True).distinct())
+        search = [self._querydict.get('columns[{}][search][value]'.format(i), None) for i in range(3)]
+        qs_filtered = []
+        columns = ['employee', 'position', 'site']
+        for i, col in enumerate(columns):
+            q = Q()
+            for j, col_inner in enumerate(columns):
+                q &= Q(**{'{}__icontains'.format(col_inner): search[j]}) if j != i else Q()
+            qs_filtered.append(Record.objects.filter(q))
+            context['yadcf_data_' + str(i)] = self.get_unique_vals(qs_filtered[i], col)
         return context
 
-    def get_unique_values(self, qs, column):
+    def get_unique_vals(self, qs, column):
         return list(qs.order_by().values_list(column, flat=True).distinct())
