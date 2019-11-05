@@ -14,6 +14,7 @@ $(document).ready(function() {
         buttons: [
             { extend: 'pdfHtml5',
                 footer: true,
+                message: '123',
                 customize : function (doc) {
 						//Remove the title created by datatTables
 						doc.content.splice(0,1);
@@ -38,16 +39,8 @@ $(document).ready(function() {
 							return {
 								columns: [
 								    {
-                                        stack: [
-                                            {
-                                                image: logo,
-                                                width: 128
-                                            },
-                                            {
-                                                    text: ["Stanowisko: ", { text: yadcf.exGetColumnFilterVal(dt_table,2) }],
-                                                    fontSize: 18
-                                            }
-                                        ]
+                                        image: logo,
+                                        width: 128
                                     },
 									{
 										alignment: 'center',
@@ -55,32 +48,12 @@ $(document).ready(function() {
 										text: 'Raport',
 										fontSize: 24,
 										margin: [10,0]
-									},
-									{
-                                        stack: [
-                                            'Data: ' + jsDate.toString(),
-                                            'Budowa: ' + yadcf.exGetColumnFilterVal(dt_table,2),
-                                            'Pracownik: '
-//                                            {
-//                                                text: "Stanowisko",
-//                                                fontSize: 18
-//                                            },
-//                                            yadcf.exGetColumnFilterVal(dt_table,2),
-//                                            {
-//                                                text: "Budowa",
-//                                                fontSize: 18
-//                                            },
-//                                            yadcf.exGetColumnFilterVal(dt_table,2),
-                                        ],
-                                        width: '*'
-                                    }
+									}
 								],
 								margin: 20
 							}
 						});
-						// Create a footer object with 2 columns
-						// Left side: report creation date
-						// Right side: current page and total pages
+
 						doc['footer']=(function(page, pages) {
 							return {
 								columns: [
@@ -96,7 +69,19 @@ $(document).ready(function() {
 								margin: 20
 							}
 						});
-//						doc['content']
+
+						doc['content'][0] = [
+                                                 'Data: ' + jsDate.toString(),
+                                                 {
+                                                    text: "Stanowisko: " + yadcf.exGetColumnFilterVal(dt_table, 1),
+                                                    fontSize: 18
+                                                 },
+                                                 {
+                                                     text: "Budowa: " + yadcf.exGetColumnFilterVal(dt_table, 2),
+                                                     fontSize: 18
+                                                 }
+                                             ];
+						console.log( doc.content );
 						// Change dataTable layout (Table styling)
 						// To use predefined layouts uncomment the line below and comment the custom lines below
 						// doc.content[0].layout = 'lightHorizontalLines'; // noBorders , headerLineOnly
