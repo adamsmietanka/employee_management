@@ -7,7 +7,7 @@ $(document).ready(function() {
 
 
     var dt_table = $('.datatable').dataTable({
-        scrollY: "60vh",
+        scrollY: "55vh",
         scrollCollapse: true,
         paging: false,
         dom: "<'row'<'text'><'col-md-6'B>> <'row'<'col-md-12't>> <'row'<'col-md-12'i>>",
