@@ -10,7 +10,7 @@ $(document).ready(function() {
         scrollY: "55vh",
         scrollCollapse: true,
         paging: false,
-        dom: "<'row'<'text'><'col-md-6'B>> <'row'<'col-md-12't>> <'row'<'col-md-12'i>>",
+        dom: "<'row'<'text'><'col-md-6'B>> <'row'<'col-md-12'tr>> <'row'<'col-md-12'i>>",
         buttons: [
             { extend: 'pdfHtml5',
                 footer: true,
@@ -59,7 +59,7 @@ $(document).ready(function() {
 									{
                                         stack: [
                                             'Data: ' + jsDate.toString(),
-                                            'Budowa: ',
+                                            'Budowa: ' + yadcf.exGetColumnFilterVal(dt_table,2),
                                             'Pracownik: '
 //                                            {
 //                                                text: "Stanowisko",
@@ -166,10 +166,10 @@ $(document).ready(function() {
 
     $("div.text").html('<label class="col-sm-3">Generuj raport:</label>');
 
-    $.busyLoadFull("show", {
-//    fontawesome: "fa fa-spinner fa-spin fa-3x fa-fw"
-    fontawesome: "fa fa-cog fa-spin  fa-3x fa-fw"
-    });
+//     $.busyLoadFull("show", {
+// //    fontawesome: "fa fa-spinner fa-spin fa-3x fa-fw"
+//     fontawesome: "fa fa-cog fa-spin  fa-3x fa-fw"
+//     });
 
     $(document).ajaxStop(function () {
         $('#content').fadeIn('fast');
