@@ -10,7 +10,7 @@ $(document).ready(function() {
         scrollY: "60vh",
         scrollCollapse: true,
         paging: false,
-        dom: "<'row'<'text'><'col-md-6'B>>f <'row'<'col-md-12't>> <'row'<'col-md-12'i>>",
+        dom: "<'row'<'text'><'col-md-6'B>> <'row'<'col-md-12't>> <'row'<'col-md-12'i>>",
         buttons: [
             { extend: 'pdfHtml5',
                 footer: true,
@@ -58,16 +58,19 @@ $(document).ready(function() {
 									},
 									{
                                         stack: [
-                                            {
-                                                text: "Stanowisko",
-                                                fontSize: 18
-                                            },
-                                            yadcf.exGetColumnFilterVal(dt_table,2),
-                                            {
-                                                text: "Budowa",
-                                                fontSize: 18
-                                            },
-                                            yadcf.exGetColumnFilterVal(dt_table,2),
+                                            'Data: ' + jsDate.toString(),
+                                            'Budowa: ',
+                                            'Pracownik: '
+//                                            {
+//                                                text: "Stanowisko",
+//                                                fontSize: 18
+//                                            },
+//                                            yadcf.exGetColumnFilterVal(dt_table,2),
+//                                            {
+//                                                text: "Budowa",
+//                                                fontSize: 18
+//                                            },
+//                                            yadcf.exGetColumnFilterVal(dt_table,2),
                                         ],
                                         width: '*'
                                     }
@@ -87,12 +90,13 @@ $(document).ready(function() {
 									},
 									{
 										alignment: 'right',
-										text: ['Strona ', { text: page.toString() },	' z ',	{ text: pages.toString() }]
+										text: ['Strona ', { text: page.toString() }, ' z ',	{ text: pages.toString() }]
 									}
 								],
 								margin: 20
 							}
 						});
+//						doc['content']
 						// Change dataTable layout (Table styling)
 						// To use predefined layouts uncomment the line below and comment the custom lines below
 						// doc.content[0].layout = 'lightHorizontalLines'; // noBorders , headerLineOnly
