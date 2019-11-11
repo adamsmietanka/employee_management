@@ -1,7 +1,11 @@
 from django.urls import path
-from .views import TestModelList, TestModelListJson
+from .views import RecordsList, RecordsListJson
+from .views import EmployeeList, EmployeeListJson
 
 urlpatterns = [
-    path('', TestModelList.as_view(), name="testmodel"),
-    path('data/', TestModelListJson.as_view(), name="testmodel_list_json"),
+    path('', RecordsList.as_view(), name="home"),
+    path('reports', RecordsList.as_view(), name="reports"),
+    path('reports/data/', RecordsListJson.as_view(), name="reports_data"),
+    path('employees', EmployeeList.as_view(), name="employees"),
+    path('employees/data/', EmployeeListJson.as_view(), name="employees_data"),
 ]

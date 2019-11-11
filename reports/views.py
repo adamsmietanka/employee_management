@@ -1,14 +1,14 @@
 from django.views.generic import TemplateView
 from django_datatables_view.base_datatable_view import BaseDatatableView
 from django.db.models import Q
-from .models import Record
-import datetime
+from .models import Record, Employee
 
 
-class TestModelList(TemplateView):
-    template_name = 'reports/testmodel_list.html'
+class RecordsList(TemplateView):
+    template_name = 'reports/records_list.html'
 
-class TestModelListJson(BaseDatatableView):
+
+class RecordsListJson(BaseDatatableView):
     model = Record
     columns = ['employee', 'position', 'site', 'date', 'cash']
     order_columns = ['employee', 'position', 'site', 'date', 'cash']
@@ -45,3 +45,14 @@ class TestModelListJson(BaseDatatableView):
 
     def get_unique_vals(self, qs, column):
         return list(qs.values_list(column, flat=True).distinct())
+
+
+class EmployeeList(TemplateView):
+    template_name = 'reports/employee_list.html'
+
+
+class EmployeeListJson(BaseDatatableView):
+    model = Employee
+    columns = ['employee', 'position', 'site', 'wage']
+    order_columns = ['employee', 'position', 'site', 'wage']
+    max_display_length = 500

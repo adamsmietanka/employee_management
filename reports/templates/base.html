@@ -1,4 +1,3 @@
-{% load i18n %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
@@ -10,7 +9,7 @@
         <script type="text/javascript"
                 src="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/b-print-1.6.1/r-2.2.3/sl-1.3.1/datatables.min.js"></script>
 
-        <!--Datepicker dependencies-->
+        <!--Daterangepicker dependencies-->
         <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -18,40 +17,32 @@
         <!--Fontawesome-->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
-        <!-- Busy Load JS & CSS -->
-        <script src="https://cdn.jsdelivr.net/npm/busy-load/dist/app.min.js"></script>
-        <link href="https://cdn.jsdelivr.net/npm/busy-load/dist/app.min.css" rel="stylesheet">
-
         {% block extra_head %}{% endblock %}
 
     </head>
     <body>
-        <div class="container">
-            <div class="row"></div>
-            <label class="col-sm-12 col-md-12"></label>
 
-            <div class="form-group row">
-                <label class="col-sm-1 col-form-label">Pracownik</label>
-                <div class="col-sm-5" id="filter_employee"></div>
-
-                <label class="col-sm-1 col-form-label">Stanowisko</label>
-                <div class="col-sm-5" id="filter_job"></div>
-            </div>
-
-            <div class="form-group row">
-                <label class="col-sm-1 col-form-label">Budowa</label>
-                <div class="col-sm-5" id="filter_site"></div>
-
-                <label class="col-sm-1 col-form-label">Data</label>
-                <div class="col-sm-5">
-                    <div class="form-control" id="reportrange">
-                        <i class="fa fa-calendar"></i>&nbsp;
-                        <span></span>
-                        <i class="fa fa-caret-down"></i>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'reports' %}">
+                    <img src="http://www.dkwgroup.pl/wp-content/uploads/2019/04/dkw_logo.png" alt="Logo"
+                         style="width:150px;">
+                </a>
+                <div class="navbar-nav mr-auto">
+                    <a class="nav-item nav-link" href="{% url 'reports' %}">Raporty</a>
+                    <a class="nav-item nav-link" href="{% url 'employees' %}">Pracownicy</a>
                     </div>
+                <!-- Navbar Right Side -->
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="#">Wyloguj</a>
                 </div>
             </div>
-        </div>
+        </nav>
+    </header>
+
+    {% block reports_filters %}{% endblock %}
+
         <div class="container">
             <div class="row">
                 {% block content %}{% endblock %}

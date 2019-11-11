@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load i18n staticfiles %}
+
+{% block extra_head %}
+    <title>Raport</title>
+
+<link rel="stylesheet" type="text/css" href="{% static 'reports/main.css' %}"/>
+
+<script src="{% static 'reports/records_table.js' %}"></script>
+<script src="{% static 'reports/datatables-yadcf.js' %}"></script>
+    <script type="text/javascript">
+    var records_json = '{% url "reports_data" %}';
+
+    // Translations for datatables
+    var dt_language = {
+        "emptyTable":     "{% trans "No data available in table" %}",
+        "info":           "{% trans "Znaleziono _TOTAL_ rekordów" %}",
+        "infoEmpty":      "{% trans "Znaleziono 0 rekordów" %}",
+        "infoFiltered":   "{% trans "z _MAX_" %}",
+        "infoPostFix":    "",
+        "thousands":      ",",
+        "lengthMenu":     "{% trans "Rekordów na stronę _MENU_" %}",
+        "loadingRecords": "{% trans "Ładowanie..." %}",
+        processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Przetwarzanie...</span> ',
+        "search":         "{% trans "Szukaj:" %}",
+        "zeroRecords":    "{% trans "Brak rekordów" %}",
+        "paginate": {
+            "first":      "{% trans "Pierwsza" %}",
+            "last":       "{% trans "Ostatnia" %}",
+            "next":       "{% trans "Następna" %}",
+            "previous":   "{% trans "Poprzednia" %}"
+        },
+        "aria": {
+            "sortAscending":  "{% trans ": activate to sort column ascending" %}",
+            "sortDescending": "{% trans ": activate to sort column descending" %}"
+        }
+    }
+
+    var datepicker_language = {
+        cancelLabel: 'Anuluj',
+        format: 'YYYY/MM/DD',
+        customRangeLabel: 'Własne',
+        separator: " - ",
+        applyLabel: "OK",
+        firstDay: 1,
+        daysOfWeek: [
+            "Nd",
+            "Pn",
+            "Wt",
+            "Śr",
+            "Cz",
+            "Pt",
+            "So"
+        ],
+        monthNames: [
+            "Styczeń",
+            "Luty",
+            "Marzec",
+            "Kwiecień",
+            "Maj",
+            "Czerwiec",
+            "Lipiec",
+            "Sierpień",
+            "Wrzesień",
+            "Październik",
+            "Listopad",
+            "Grudzień"
+        ]
+    }
+    </script>
+{% endblock %}
+
+{% block reports_filters %}
+<div class="container">
+    <div class="row"></div>
+    <label class="col-sm-12 col-md-12"></label>
+
+    <div class="form-group row">
+        <label class="col-sm-1 col-form-label">Pracownik</label>
+        <div class="col-sm-5" id="filter_employee"></div>
+
+        <label class="col-sm-1 col-form-label">Stanowisko</label>
+        <div class="col-sm-5" id="filter_job"></div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-1 col-form-label">Budowa</label>
+        <div class="col-sm-5" id="filter_site"></div>
+
+        <label class="col-sm-1 col-form-label">Data</label>
+        <div class="col-sm-5">
+            <div class="form-control" id="reportrange">
+                <i class="fa fa-calendar"></i>&nbsp;
+                <span></span>
+                <i class="fa fa-caret-down"></i>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="table-responsive">
+    <table class="datatable table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+        <thead>
+        <tr>
+            <th>{% trans "Pracownik" %}</th>
+            <th>{% trans "Stanowisko" %}</th>
+            <th>{% trans "Budowa" %}</th>
+            <th>{% trans "Data" %}</th>
+            <th>{% trans "Dniówka" %}</th>
+        </tr>
+        </thead>
+
+        <tfoot>
+        <tr>
+            <th rowspan="1" colspan="1"></th>
+            <th rowspan="1" colspan="1"></th>
+            <th rowspan="1" colspan="1"></th>
+            <th rowspan="1" colspan="1"></th>
+            <th rowspan="1" colspan="1"></th>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+{% endblock %}

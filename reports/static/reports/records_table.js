@@ -5,8 +5,8 @@ var enddate;
 
 $(document).ready(function() {
 
-    initFilterStartDate = moment().subtract(1, 'month').startOf('month');
-    initFilterEndDate   = moment().subtract(1, 'month').endOf('month');
+    initFilterStartDate = moment().startOf('month');
+    initFilterEndDate   = moment().endOf('month');
 
     var dt_table = $('.datatable').dataTable({
         scrollY: "55vh",
@@ -15,7 +15,6 @@ $(document).ready(function() {
         dom: "<'row'<'text'><'col-md-6'B>> <'row'<'col-md-12'tr>> <'row'<'col-md-12'i>>",
         buttons: [
             {   extend: 'pdfHtml5',
-//                download: 'open',
                 footer: true,
                 customize : function (doc) {
 						var now = new Date();
@@ -81,21 +80,8 @@ $(document).ready(function() {
 
 						doc['content'][0] = formTable;
 						doc['content'][1]['alignment'] = 'center';
-//						doc['content'][0] = [
-//                                                 'Data: ' + jsDate.toString(),
-//                                                 {
-//                                                    text: "Stanowisko: " + yadcf.exGetColumnFilterVal(dt_table, 1),
-//                                                    fontSize: 12
-//                                                 },
-//                                                 {
-//                                                     text: "Budowa: " + yadcf.exGetColumnFilterVal(dt_table, 2),
-//                                                     fontSize: 12
-//                                                 }
-//                                             ];
 
-//						console.log( datepicker_language['monthNames'] );
 						console.log( doc.content );
-
 
 						// Change dataTable layout (Table styling)
 						// To use predefined layouts uncomment the line below and comment the custom lines below
@@ -138,15 +124,9 @@ $(document).ready(function() {
         stateSave: true,
         footerCallback: function ( row, data, start, end, display ) {
                 var api = this.api();
+                var total = api.column( 4 ).data().reduce( function (a, b) {
+                        return parseFloat(a) + parseFloat(b)}, 0 );
 
-                    var total = api
-                        .column( 4 )
-                        .data()
-                        .reduce( function (a, b) {
-                        return parseFloat(a) + parseFloat(b);
-                    }, 0 );
-
-                //Update footer
                 $( api.column( 4 ).footer() ).html('Razem: ' + total + ' zł');
             },
         ajax: {
@@ -171,16 +151,13 @@ $(document).ready(function() {
            'Ten miesiąc': [moment().startOf('month'), moment().endOf('month')],
            'Poprzedni miesiąc': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]},
         opens: "right",
-        format: 'YYYY-MM-DD',
         locale: datepicker_language
     },
     function(start, end, label) {
         startdate = start.format("YYYY/MM/DD");
         enddate   = end.format("YYYY/MM/DD");
-        if (label != "Własne")
-            $('#reportrange span').html(label);
-        else
-            $('#reportrange span').html(startdate + ' - ' + enddate);
+        var filterDateSpan = (label != 'Własne') ? label : startdate + ' - ' + enddate;
+        $('#reportrange span').html(filterDateSpan)
     });
 
     //Filter the datatable on the datepicker apply event
@@ -190,30 +167,15 @@ $(document).ready(function() {
         dt_table.fnDraw();
     });
 
-    dt_table.yadcf([
-            {
-                column_number: 0,
-                filter_type: "select",
-                filter_container_id: "filter_employee",
-                style_class: "form-control",
-                filter_reset_button_text: false,
-                filter_default_label: "Wybierz pracownika"
-            },
-            {
-                column_number: 1,
-                filter_type: "select",
-                filter_container_id: "filter_job",
-                style_class: "form-control",
-                filter_reset_button_text: false,
-                filter_default_label: "Wybierz stanowisko"
-            },
-            {
-                column_number: 2,
-                filter_type: "select",
-                filter_container_id: "filter_site",
-                style_class: "form-control",
-                filter_reset_button_text: false,
-                filter_default_label: "Wybierz budowę"
-            }
-        ]);
-} );
+    var filterTable = [];
+    var filterContainers = ['employee', 'job', 'site'];
+    for (let [i, value] of filterContainers.entries()) {
+        filterTable.push({
+            column_number: i,
+            filter_type: "select",
+            filter_container_id: "filter_" + value,
+            style_class: "form-control",
+            filter_reset_button_text: false,
+            filter_default_label: "Wszystko"})}
+    dt_table.yadcf(filterTable);
+} )
