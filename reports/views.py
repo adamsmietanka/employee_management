@@ -14,11 +14,6 @@ class TestModelListJson(BaseDatatableView):
     order_columns = ['employee', 'position', 'site', 'date', 'cash']
     max_display_length = 500
 
-    def get_initial_queryset(self):
-        records = Record.objects.all()
-        three_months_ago = datetime.date.today() - datetime.timedelta(2 * 30)
-        return records.filter(date__gte=str(three_months_ago.replace(day=1)))
-
     def filter_queryset(self, qs):
         if not self.pre_camel_case_notation:
             search_employee = self._querydict.get('columns[0][search][value]', None)
@@ -38,16 +33,14 @@ class TestModelListJson(BaseDatatableView):
     def get_context_data(self, *args, **kwargs):
         context = super(BaseDatatableView, self).get_context_data(**kwargs)
         columns = ['employee', 'position', 'site']
-        # search = [self._querydict.get('columns[{}][search][value]'.format(i), None) for i in range(3)]
-        # qs_filtered = []
-        # for i, col in enumerate(columns):
-        #     q = Q()
-        #     for j, col_inner in enumerate(columns):
-        #         q &= Q(**{'{}__icontains'.format(col_inner): search[j]}) if j != i else Q()
-        #     qs_filtered.append(Record.objects.filter(q))
-        #     context['yadcf_data_{}'.format(i)] = self.get_unique_vals(qs_filtered[i], col)
+        search = [self._querydict.get('columns[{}][search][value]'.format(i), None) for i in range(3)]
+        qs_filtered = []
         for i, col in enumerate(columns):
-            context['yadcf_data_{}'.format(i)] = self.get_unique_vals(Record.objects.all(), col)
+            q = Q()
+            for j, col_inner in enumerate(columns):
+                q &= Q(**{'{}__icontains'.format(col_inner): search[j]}) if j != i else Q()
+            qs_filtered.append(Record.objects.filter(q))
+            context['yadcf_data_{}'.format(i)] = self.get_unique_vals(qs_filtered[i], col)
         return context
 
     def get_unique_vals(self, qs, column):
