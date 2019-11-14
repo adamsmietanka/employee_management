@@ -48,7 +48,7 @@ class RecordsListJson(BaseDatatableView):
 
 
 class EmployeeList(TemplateView):
-    template_name = 'reports/employee_list.html'
+    template_name = 'reports/employees_list.html'
 
 
 class EmployeeListJson(BaseDatatableView):
@@ -56,3 +56,19 @@ class EmployeeListJson(BaseDatatableView):
     columns = ['employee', 'position', 'site', 'wage']
     order_columns = ['employee', 'position', 'site', 'wage']
     max_display_length = 500
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(BaseDatatableView, self).get_context_data(**kwargs)
+        columns = ['employee', 'position', 'site']
+        search = [self._querydict.get('columns[{}][search][value]'.format(i), None) for i in range(3)]
+        qs_filtered = []
+        for i, col in enumerate(columns):
+            q = Q()
+            for j, col_inner in enumerate(columns):
+                q &= Q(**{'{}__icontains'.format(col_inner): search[j]}) if j != i else Q()
+            qs_filtered.append(Record.objects.filter(q))
+            context['yadcf_data_{}'.format(i)] = self.get_unique_vals(qs_filtered[i], col)
+        return context
+
+    def get_unique_vals(self, qs, column):
+        return list(qs.values_list(column, flat=True).distinct())

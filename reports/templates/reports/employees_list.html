@@ -14,8 +14,8 @@
     // Translations for datatables
     var dt_language = {
         "emptyTable":     "{% trans "No data available in table" %}",
-        "info":           "{% trans "Znaleziono _TOTAL_ rekordów" %}",
-        "infoEmpty":      "{% trans "Znaleziono 0 rekordów" %}",
+        "info":           "{% trans "Znaleziono _TOTAL_ pracowników" %}",
+        "infoEmpty":      "{% trans "Znaleziono 0 pracowników" %}",
         "infoFiltered":   "{% trans "z _MAX_" %}",
         "infoPostFix":    "",
         "thousands":      ",",
@@ -23,7 +23,7 @@
         "loadingRecords": "{% trans "Ładowanie..." %}",
         processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Przetwarzanie...</span> ',
         "search":         "{% trans "Szukaj:" %}",
-        "zeroRecords":    "{% trans "Brak rekordów" %}",
+        "zeroRecords":    "{% trans "Brak pracowników" %}",
         "paginate": {
             "first":      "{% trans "Pierwsza" %}",
             "last":       "{% trans "Ostatnia" %}",
@@ -102,15 +102,6 @@
             <th>{% trans "Stawka" %}</th>
         </tr>
         </thead>
-
-        <tfoot>
-        <tr>
-            <th rowspan="1" colspan="1"></th>
-            <th rowspan="1" colspan="1"></th>
-            <th rowspan="1" colspan="1"></th>
-            <th rowspan="1" colspan="1"></th>
-        </tr>
-        </tfoot>
     </table>
 </div>
 {% endblock %}
