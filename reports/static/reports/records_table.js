@@ -4,7 +4,6 @@ var enddate   = moment().endOf  ('month')
 
 $(document).ready(function() {
 
-    var monthLabel =  0
     var dt_table = $('.datatable').dataTable({
         scrollY: "55vh",
         scrollCollapse: true,
@@ -19,10 +18,9 @@ $(document).ready(function() {
                     doc.pageMargins = [50,80,50,50];
                     doc.defaultStyle.fontSize = 7;
 
-                    if (startdate.format('D') == 1 && enddate.format('D') == moment(enddate).endOf('month').format('D'))
-                        monthLabel  = datepicker_language['monthNames'][startdate.format('M') - 1];
-                    else
-                        days = [startdate.format("DD-MM-YYYY"), enddate.format("DD-MM-YYYY")]
+                    dateRange = (startdate.format('D') == 1 && enddate.format('D') == moment(enddate).endOf('month').format('D'));
+                    month = dateRange ? datepicker_language['monthNames'][startdate.format('M') - 1] : 0;
+                    days =  dateRange ? 0 : [startdate.format("DD-MM-YYYY"), enddate.format("DD-MM-YYYY")];
 
                     doc['header'] = {
                             columns: [
@@ -60,8 +58,8 @@ $(document).ready(function() {
                     var pdfLine = {fontSize: 12}
                     var formTable = [{ ...pdfLine, text: 'Suma: ' + total + ' PLN'}]
 
-                    if (monthLabel)
-                        formTable.push({ ...pdfLine, text: 'Miesiąc: ' + monthLabel})
+                    if (month)
+                        formTable.push({ ...pdfLine, text: 'Miesiąc: ' + month})
 
                     if (days) {
                         formTable.push({ ...pdfLine, text: 'Od: ' + days[0]});

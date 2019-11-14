@@ -18,8 +18,6 @@ $(document).ready(function() {
         }
     });
 
-    $("div.text").html('<label class="col-3">Generuj raport:</label>');
-
     var filterTable = [];
     for (let [i, value] of ['employee', 'job', 'site'].entries()) {
         filterTable.push({
