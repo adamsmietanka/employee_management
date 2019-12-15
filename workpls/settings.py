@@ -126,9 +126,12 @@ STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 django_heroku.settings(locals())
-del DATABASES['default']['OPTIONS']['sslmode']
 
 # Connecting to sqlite locally
 dotenv_file = os.path.join(BASE_DIR, ".env")
 if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
+    try:
+        del DATABASES['default']['OPTIONS']['sslmode']
+    except KeyError:
+        pass

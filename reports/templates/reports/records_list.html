@@ -2,12 +2,11 @@
 {% load i18n staticfiles %}
 
 {% block extra_head %}
-    <title>Raport</title>
+    <title>DKW - Raport</title>
 
 <link rel="stylesheet" type="text/css" href="{% static 'reports/main.css' %}"/>
 
 <script src="{% static 'reports/records_table.js' %}"></script>
-<script src="{% static 'reports/datatables-yadcf.js' %}"></script>
     <script type="text/javascript">
     var records_json = '{% url "reports_data" %}';
 
